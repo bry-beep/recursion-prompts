@@ -73,14 +73,16 @@ var range = function (x, y) {
   }
   return [];
 };
-console.log(range(2,9));
 
 // 7. Compute the exponent of a number.
 // The exponent of a number says how many times the base number is used as a factor.
 // 8^2 = 8 x 8 = 64. Here, 8 is the base and 2 is the exponent.
 // exponent(4,3); // 64
-// https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function (base, exp) {
+  if (exp < 1) {
+    return 1;
+  }
+  return base * (exponent(base, exp-1));
 };
 
 // 8. Determine if a number is a power of two.
@@ -88,14 +90,38 @@ var exponent = function (base, exp) {
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
 var powerOfTwo = function (n) {
+  if (n === 1) {
+    return true;
+  } else if (n % 1 !== 0) {
+    return false;
+  }
+  return powerOfTwo(n/2);
 };
 
 // 9. Write a function that reverses a string.
 var reverse = function (string) {
+  if (string.length === 0) {
+    return null;
+  } else if (string.length === 1) {
+    return string;
+  } else {
+    const first = string.charAt(0);
+    return reverse(string.substring(1)) + first;
+  }
 };
 
 // 10. Write a function that determines if a string is a palindrome.
 var palindrome = function (string) {
+  const length = string.length;
+  if (length === 1) {
+    return true;
+  }
+  const last = string.charAt(length - 1);
+  if (last === string.charAt(0)) {
+    return length === 2 ? true : palindrome(string.substring(1, length - 1));
+  } else {
+    return false;
+  }
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
